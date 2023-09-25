@@ -1,0 +1,39 @@
+apiVersion: template.app.sealos.io/v1beta1
+kind: Template
+metadata:
+  name: ${{ defaults.app_name }}
+spec:
+  title: 'FastGpt'
+  url: 'https://fastgpt.run/'
+  github: 'https://github.com/labring/FastGPT'
+  author: 'sealos'
+  description: 'Fast GPT allows you to use your own openai API KEY to quickly call the openai interface, currently integrating Gpt35, Gpt4 and embedding. You can build your own knowledge base.'
+  readme: 'https://raw.githubusercontent.com/labring/FastGPT/main/README.md'
+  icon: 'https://avatars.githubusercontent.com/u/50446880?s=96&v=4'
+  template_type: inline
+  defaults:
+    app_name:
+      type: string
+      value: fastgpt-${{ random(8) }}
+    app_host:
+      type: string
+      value: ${{ random(8) }}
+  inputs:
+    root_passowrd:
+      description: 'Set root password. login: username: root, password: root_passowrd'
+      type: string
+      default: ${{ SEALOS_NAMESPACE }}
+      required: true
+    openai_key:
+      description: 'openai api key'
+      type: string
+      default: ''
+      required: true
+    database_type:
+      description: 'type of database'
+      required: false
+      type: choice
+      default: 'mysql'
+      options:
+        - sqlite
+        - mysql
